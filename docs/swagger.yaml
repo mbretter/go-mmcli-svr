@@ -1,0 +1,189 @@
+definitions:
+  api.SmsRequestData:
+    properties:
+      number:
+        example: "+431234567890"
+        type: string
+      text:
+        example: Ping
+        type: string
+    type: object
+  http.ErrorResponse:
+    properties:
+      error:
+        example: an error occurred
+        type: string
+    type: object
+host: 127.0.0.1:8743
+info:
+  contact: {}
+  description: a http server in front of mmcli
+  license:
+    name: bsd
+  title: mmcli server
+  version: "1.0"
+paths:
+  /location:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Modem-Id
+        in: query
+        name: modem
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ErrorResponse'
+      summary: Get location
+      tags:
+      - location
+  /modem/:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: List modems
+      tags:
+      - modem
+  /modem/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Modem-Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ErrorResponse'
+      summary: Modem info
+      tags:
+      - modem
+  /ping:
+    get:
+      consumes:
+      - text/plain
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - JWT: []
+      summary: ping
+      tags:
+      - utils
+  /sms:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/api.SmsRequestData'
+      - description: Modem-Id
+        in: query
+        name: modem
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Send SMS
+      tags:
+      - sms
+  /sms/:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Modem-Id
+        in: query
+        name: modem
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ErrorResponse'
+      summary: List SMS messages
+      tags:
+      - sms
+  /sms/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: SMS-Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete a single SMS
+      tags:
+      - sms
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: SMS-Id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Modem-Id
+        in: query
+        name: modem
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ErrorResponse'
+      summary: List SMS messages
+      tags:
+      - sms
+securityDefinitions:
+  JWT:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
