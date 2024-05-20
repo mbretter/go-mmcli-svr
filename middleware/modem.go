@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"context"
-	"go-mmcli-svr/api"
-	utils "go-mmcli-svr/http"
+	"github.com/mbretter/go-mmcli-svr/api"
+	utils "github.com/mbretter/go-mmcli-svr/http"
 	"log/slog"
 	"net/http"
 )

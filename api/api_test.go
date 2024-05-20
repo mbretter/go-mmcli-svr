@@ -1,7 +1,7 @@
 package api
 
 import (
-	"go-mmcli-svr/backend"
+	"github.com/mbretter/go-mmcli-svr/backend"
 	"testing"
 )
 

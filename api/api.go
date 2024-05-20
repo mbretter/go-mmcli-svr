@@ -2,7 +2,7 @@ package api
 
 import (
 	"fmt"
-	"go-mmcli-svr/backend"
+	"github.com/mbretter/go-mmcli-svr/backend"
 	"regexp"
 	"strings"
 )

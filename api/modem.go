@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/go-chi/chi/v5"
-	utils "go-mmcli-svr/http"
+	utils "github.com/mbretter/go-mmcli-svr/http"
 	"net/http"
 )
 

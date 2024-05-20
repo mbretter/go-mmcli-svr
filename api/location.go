@@ -1,7 +1,7 @@
 package api
 
 import (
-	utils "go-mmcli-svr/http"
+	utils "github.com/mbretter/go-mmcli-svr/http"
 	"net/http"
 )
 

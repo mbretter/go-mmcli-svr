@@ -10,7 +10,7 @@ mocks:
 	mockery
 
 build:
-	GOWORK=off go build -v -o mmcli-srv main.go
+	GOWORK=off go build -v -o mmcli-srv commandline.go main.go
 
 test:
 	go test ./... -tags=test

@@ -1,4 +1,4 @@
-module go-mmcli-svr
+module github.com/mbretter/go-mmcli-svr
 
 go 1.22
 

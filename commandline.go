@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"go-mmcli-svr/backend"
+	"github.com/mbretter/go-mmcli-svr/backend"
 	"log/slog"
 	"slices"
 	"strings"

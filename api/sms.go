@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-chi/chi/v5"
-	utils "go-mmcli-svr/http"
+	utils "github.com/mbretter/go-mmcli-svr/http"
 	"net/http"
 	"strings"
 )
