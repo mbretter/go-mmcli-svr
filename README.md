@@ -1,4 +1,4 @@
-![test](https://github.com/mbretter/go-mmcli-svr/actions/workflows/go.yml/badge.svg)
+[![](https://github.com/mbretter/go-mmcli-svr/actions/workflows/go.yml/badge.svg)](https://github.com/mbretter/go-mmcli-svr/actions/workflows/go.yml)
 
 mmcli-svr provides a http/api for accessing ModemManager.
 
