@@ -13,7 +13,7 @@ import (
 	"testing"
 )
 
-func TestRead(t *testing.T) {
+func TestLocationGet(t *testing.T) {
 	tests := []struct {
 		name             string
 		modem            string
@@ -47,7 +47,7 @@ func TestRead(t *testing.T) {
 			var buff bytes.Buffer
 			logger := slog.New(slog.NewTextHandler(&buff, nil))
 
-			r := newReadRequest(tt.modem, logger)
+			r := newLocationReadRequest(tt.modem, logger)
 			w := httptest.NewRecorder()
 
 			if tt.expectStatusCode == http.StatusInternalServerError {
@@ -68,7 +68,7 @@ func TestRead(t *testing.T) {
 	}
 }
 
-func newReadRequest(modemId string, logger *slog.Logger) *http.Request {
+func newLocationReadRequest(modemId string, logger *slog.Logger) *http.Request {
 	r := httptest.NewRequest("GET", "http://127.0.0.1:8743/location", nil)
 
 	ctx := context.WithValue(r.Context(), "modem", modemId)
