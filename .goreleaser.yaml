@@ -3,6 +3,4 @@ builds:
     binary: mmcli-svr
     goos:
       - linux
-      - darwin
-      - windows
-      - freebsd
+
