@@ -1,5 +1,5 @@
 builds:
-  - id: "go-mmcli-svr"
+  - id: "mmcli-svr"
     binary: mmcli-svr
     goos:
       - linux
