@@ -1,2 +1,8 @@
 builds:
-  - binary: mmcli-svr
+  - id: "go-mmcli-svr"
+    binary: mmcli-svr
+    goos:
+      - linux
+      - darwin
+      - windows
+      - freebsd
