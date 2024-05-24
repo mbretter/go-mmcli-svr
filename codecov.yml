@@ -1,2 +1,3 @@
 ignore:
   - "docs"
+  - "backend/backend_mock.go"
