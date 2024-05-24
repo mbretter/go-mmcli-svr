@@ -34,7 +34,7 @@ func ValidatePathIndex(id string) (string, error) {
 	}
 
 	if !regEx.MatchString(id) {
-		return "", fmt.Errorf("invalid Modem ID")
+		return "", fmt.Errorf("invalid ID")
 	}
 	return id, nil
 }

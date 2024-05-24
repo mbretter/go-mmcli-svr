@@ -100,7 +100,7 @@ func TestModemDetail(t *testing.T) {
 			"InvalidModemId",
 			"/&.",
 			http.StatusBadRequest,
-			`{"error":"invalid Modem ID"}`,
+			`{"error":"invalid ID"}`,
 		},
 	}
 

@@ -43,7 +43,7 @@ func (b *Mmcli) Exec(args ...string) ([]byte, error) {
 
 func (b *Mmcli) ExecModem(modem string, args ...string) ([]byte, error) {
 	if len(modem) == 0 {
-		buf, _ := b.exec("bash", "-c", "mmcli -L -J | jq -r '.\"modem-list\"[0]'").Output()
+		buf, _ := b.exec("bash", "-c", `mmcli -L -J | jq -r '."modem-list"[0]'`).Output()
 		// contains "null" as string if no modem was found
 		modem = strings.Trim(string(buf), "\n ")
 	}
