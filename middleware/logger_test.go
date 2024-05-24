@@ -11,7 +11,7 @@ import (
 	"testing"
 )
 
-func TestLogger(t *testing.T) {
+func TestHttpLoggerMiddleware(t *testing.T) {
 	const requestIdField = "requestId"
 	const requestId = "657483"
 
