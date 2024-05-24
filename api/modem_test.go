@@ -88,7 +88,7 @@ func TestModemDetail(t *testing.T) {
 			"Success",
 			"1",
 			http.StatusOK,
-			`{"modem-list":["/org/freedesktop/ModemManager1/Modem/0"]}`,
+			`{"modem":{"3gpp":{"5gnr"...}}}`,
 		},
 		{
 			"Error",
