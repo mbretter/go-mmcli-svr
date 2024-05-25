@@ -25,6 +25,72 @@ If you want authentication, put the service behind a reverse proxy like nginx.
 
 For a detailed description of the ModemManager related options, see `man mmcli`
 
+`./mmcli-srv -location-enable=gps-raw,gps-nmea -gps-refresh=5`
+
 ## api docs
 
 You can access the api docs using the included openapi documentation: http://127.0.0.1:8743/swagger/index.html
+
+## examples
+
+### get location
+
+```
+curl -X 'GET' 'http://127.0.0.1:8743/location' -H 'accept: application/json'
+```
+
+Response body:
+```
+{
+  "modem": {
+    "location": {
+      "3gpp": {
+        "cid": "000FA908",
+        "lac": "FFFE",
+        "mcc": "232",
+        "mnc": "01",
+        "tac": "00003D"
+      },
+      "cdma-bs": {
+        "latitude": "--",
+        "longitude": "--"
+      },
+      "gps": {
+        "altitude": "425,400000",
+        "latitude": "37,123039",
+        "longitude": "5,290773",
+        "nmea": [
+          "$GPGSV,3,1,11,02,52,298,36,03,16,233,28,08,59,191,24,10,33,053,30,1*66",
+          "$GPGSV,3,2,11,14,16,307,36,21,71,309,37,22,09,327,21,32,44,087,20,1*6D",
+          "$GPGSV,3,3,11,23,00,054,,24,,,,27,29,160,,1*6B",
+          "$GPRMC,134442.00,A,4707.382315,N,01517.446408,E,0.0,196.6,250524,1.4,E,A,V*40",
+          "$GPGSA,A,2,02,03,10,14,21,,,,,,,,1.7,1.4,0.9,1*22",
+          "$GPVTG,196.6,T,195.2,M,0.0,N,0.0,K,A*24",
+          "$GPGGA,134443.00,4707.382314,N,01517.446361,E,1,05,1.4,425.4,M,43.8,M,,*6A"
+        ],
+        "utc": "134443.00"
+      }
+    }
+  }
+}
+```
+
+### send SMS
+
+```
+curl -X 'POST' \
+  'http://127.0.0.1:8743/sms' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "number": "+436641234567",
+  "text": "Ping"
+}'
+```
+
+Response body:
+```
+{
+  "message": "successfully sent the SMS"
+}
+```
