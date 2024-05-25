@@ -19,7 +19,7 @@ Usage of ./mmcli-srv:
   -location-enable string
         enable location gathering: <all|gps-nmea|gps-raw|3gpp|agps‐msa|agps‐msb>
 ```
-The listen option changes the listening ip/port, by default the service runs an localhost only, due to security reasons.
+The listen option changes the listening ip/port, by default the service runs on localhost only, due to security reasons.
 There is no authentication implemented, anybody with network access could use the service. 
 If you want authentication, put the service behind a reverse proxy like nginx.
 
