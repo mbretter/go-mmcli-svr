@@ -6,13 +6,11 @@ definitions:
         type: string
       text:
         example: Ping
+        maxLength: 160
         type: string
-    type: object
-  http.ErrorResponse:
-    properties:
-      error:
-        example: an error occurred
-        type: string
+    required:
+    - number
+    - text
     type: object
 host: 127.0.0.1:8743
 info:
@@ -37,10 +35,6 @@ paths:
       responses:
         "200":
           description: OK
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/http.ErrorResponse'
       summary: Get location
       tags:
       - location
@@ -71,10 +65,6 @@ paths:
       responses:
         "200":
           description: OK
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/http.ErrorResponse'
       summary: Modem info
       tags:
       - modem
@@ -131,10 +121,6 @@ paths:
       responses:
         "200":
           description: OK
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/http.ErrorResponse'
       summary: List SMS messages
       tags:
       - sms
@@ -174,10 +160,6 @@ paths:
       responses:
         "200":
           description: OK
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/http.ErrorResponse'
       summary: List SMS messages
       tags:
       - sms

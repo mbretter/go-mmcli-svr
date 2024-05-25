@@ -29,7 +29,6 @@ func (a *Api) ModemList(w http.ResponseWriter, r *http.Request) {
 // @Produce	json
 // @Tags         modem
 // @Success	200
-// @Failure	404 {object} http.ErrorResponse
 // @Router		/modem/{id} [get]
 // @Param	id		path	string  true  "Modem-Id"
 func (a *Api) ModemDetail(w http.ResponseWriter, r *http.Request) {

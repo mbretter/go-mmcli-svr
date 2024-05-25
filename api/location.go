@@ -11,7 +11,6 @@ import (
 // @Produce	json
 // @Tags location
 // @Success	200
-// @Failure	404 {object} http.ErrorResponse
 // @Router		/location [get]
 // @Param	modem		query	string  false  "Modem-Id"
 func (a *Api) LocationGet(w http.ResponseWriter, r *http.Request) {

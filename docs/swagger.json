@@ -34,12 +34,6 @@
                 "responses": {
                     "200": {
                         "description": "OK"
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/http.ErrorResponse"
-                        }
                     }
                 }
             }
@@ -87,12 +81,6 @@
                 "responses": {
                     "200": {
                         "description": "OK"
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/http.ErrorResponse"
-                        }
                     }
                 }
             }
@@ -183,12 +171,6 @@
                 "responses": {
                     "200": {
                         "description": "OK"
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/http.ErrorResponse"
-                        }
                     }
                 }
             }
@@ -223,12 +205,6 @@
                 "responses": {
                     "200": {
                         "description": "OK"
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/http.ErrorResponse"
-                        }
                     }
                 }
             },
@@ -263,6 +239,10 @@
     "definitions": {
         "api.SmsRequestData": {
             "type": "object",
+            "required": [
+                "number",
+                "text"
+            ],
             "properties": {
                 "number": {
                     "type": "string",
@@ -270,16 +250,8 @@
                 },
                 "text": {
                     "type": "string",
+                    "maxLength": 160,
                     "example": "Ping"
-                }
-            }
-        },
-        "http.ErrorResponse": {
-            "type": "object",
-            "properties": {
-                "error": {
-                    "type": "string",
-                    "example": "an error occurred"
                 }
             }
         }

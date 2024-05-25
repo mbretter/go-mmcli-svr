@@ -5,14 +5,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-playground/validator/v10"
 	utils "github.com/mbretter/go-mmcli-svr/http"
 	"net/http"
 	"strings"
 )
 
 type SmsRequestData struct {
-	Number string `json:"number" example:"+431234567890"`
-	Text   string `json:"text" example:"Ping"`
+	Number string `json:"number" example:"+431234567890" validate:"required,e164"`
+	Text   string `json:"text" example:"Ping" validate:"required,max=160"`
 }
 
 // SmsCreated {"modem":{"messaging":{"created-sms":"/org/freedesktop/ModemManager1/SMS/0"}}}
@@ -30,7 +31,6 @@ type SmsCreated struct {
 // @Produce	json
 // @Tags         sms
 // @Success	200
-// @Failure	404 {object} http.ErrorResponse
 // @Router		/sms/ [get]
 // @Router		/sms/{id} [get]
 // @Param	id		path	string  true  "SMS-Id"
@@ -79,6 +79,13 @@ func (a *Api) SmsSend(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	validate := validator.New()
+	err = validate.Struct(requestData)
+	if err != nil {
+		utils.WriteError(w, r, http.StatusBadRequest, err)
+		return
+	}
+
 	smsStr := fmt.Sprintf("number='%s',text='%s'", requestData.Number, requestData.Text)
 	jsonBuf, err := a.backend.ExecModem(modem, "--messaging-create-sms="+smsStr)
 	if err != nil {
@@ -89,7 +96,7 @@ func (a *Api) SmsSend(w http.ResponseWriter, r *http.Request) {
 	var smsCreated SmsCreated
 	err = json.NewDecoder(bytes.NewReader(jsonBuf)).Decode(&smsCreated)
 	if err != nil {
-		utils.WriteError(w, r, http.StatusBadRequest, err)
+		utils.WriteError(w, r, http.StatusInternalServerError, err)
 		return
 	}
 

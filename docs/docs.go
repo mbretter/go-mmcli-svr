@@ -41,12 +41,6 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "OK"
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/http.ErrorResponse"
-                        }
                     }
                 }
             }
@@ -94,12 +88,6 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "OK"
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/http.ErrorResponse"
-                        }
                     }
                 }
             }
@@ -190,12 +178,6 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "OK"
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/http.ErrorResponse"
-                        }
                     }
                 }
             }
@@ -230,12 +212,6 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "OK"
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/http.ErrorResponse"
-                        }
                     }
                 }
             },
@@ -270,6 +246,10 @@ const docTemplate = `{
     "definitions": {
         "api.SmsRequestData": {
             "type": "object",
+            "required": [
+                "number",
+                "text"
+            ],
             "properties": {
                 "number": {
                     "type": "string",
@@ -277,16 +257,8 @@ const docTemplate = `{
                 },
                 "text": {
                     "type": "string",
+                    "maxLength": 160,
                     "example": "Ping"
-                }
-            }
-        },
-        "http.ErrorResponse": {
-            "type": "object",
-            "properties": {
-                "error": {
-                    "type": "string",
-                    "example": "an error occurred"
                 }
             }
         }
