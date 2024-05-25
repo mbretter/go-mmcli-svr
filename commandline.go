@@ -34,7 +34,7 @@ func NewCommandLine(logger *slog.Logger, backend backend.Backend) *CommandLine {
 func (c *CommandLine) Parse() error {
 	var listen = flag.String("listen", defaultListen, "listen: <ip:port|:port>")
 	var enableLocation = flag.String("location-enable", defaultLocationEnable, "enable location gathering: <all|gps-nmea|gps-raw|3gpp|agps‐msa|agps‐msb>")
-	var gpsRefresh = flag.Int("gps-refresh", defaultGpsRefresh, "enable location gathering: <gps-nmea|gps-raw|3gpp|agps‐msa|agps‐msb>")
+	var gpsRefresh = flag.Int("gps-refresh", defaultGpsRefresh, "gps refresh rate in seconds")
 	flag.Parse()
 
 	if *listen != "" {
