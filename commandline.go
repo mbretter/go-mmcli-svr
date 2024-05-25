@@ -52,20 +52,23 @@ func (c *CommandLine) Parse() error {
 			}
 			switch typ {
 			case "agps-msa":
-				c.LocationGatherings = []string{"agps-msa", "gps-nmea"}
+				c.LocationGatherings = append(c.LocationGatherings, "agps-msa", "gps-nmea")
 			case "agps-msb":
-				c.LocationGatherings = []string{"agps-msb", "gps-nmea"}
+				c.LocationGatherings = append(c.LocationGatherings, "agps-msb", "gps-nmea")
 			case "gps-nmea":
-				c.LocationGatherings = []string{"gps-nmea"}
+				c.LocationGatherings = append(c.LocationGatherings, "gps-nmea")
 			case "gps-raw":
-				c.LocationGatherings = []string{"gps-raw"}
+				c.LocationGatherings = append(c.LocationGatherings, "gps-raw")
 			case "3gpp":
-				c.LocationGatherings = []string{"3gpp"}
+				c.LocationGatherings = append(c.LocationGatherings, "3gpp")
 			default:
 				return fmt.Errorf("unknown location type: %s", typ)
 			}
 		}
 	}
+
+	slices.Sort(c.LocationGatherings)
+	c.LocationGatherings = slices.Compact(c.LocationGatherings)
 
 	return nil
 }
