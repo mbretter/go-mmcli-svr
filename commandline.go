@@ -28,6 +28,7 @@ func NewCommandLine(logger *slog.Logger, backend backend.Backend) *CommandLine {
 	return &CommandLine{
 		log:     logger,
 		backend: backend,
+		Listen:  defaultListen,
 	}
 }
 
