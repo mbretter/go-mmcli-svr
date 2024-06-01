@@ -7,12 +7,15 @@ outpkg: "{{.PackageName}}"
 dir: "{{.InterfaceDir}}"
 inpackage: True
 packages:
-  go-mmcli-svr/backend:
+  github.com/mbretter/go-mmcli-svr:
+    interfaces:
+      SmsHandlersInterface:
+  github.com/mbretter/go-mmcli-svr/backend:
     config:
       filename: "{{.InterfaceNameLower}}_mock.go"
     interfaces:
       Backend:
-  go-mmcli-svr/backend/mmcli:
+  github.com/mbretter/go-mmcli-svr/backend/mmcli:
     interfaces:
       ExecCommand:
       ExecCommandOutput:

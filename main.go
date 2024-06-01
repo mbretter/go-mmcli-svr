@@ -71,10 +71,10 @@ func main() {
 	r.Use(middleware.HttpModemMiddleware(log))
 
 	r.With(middleware.LogRoute).Route("/", func(r chi.Router) {
-
+		handlers := api.Provide(backend)
 		registerModemRoutes(r, backend)
 		registerLocationRoutes(r, backend)
-		registerSmsRoutes(r, backend)
+		registerSmsRoutes(r, handlers)
 
 		utilsApi := api.ProvideUtilsApi()
 		r.Get("/ping", utilsApi.Ping)
@@ -100,12 +100,15 @@ func registerLocationRoutes(r chi.Router, backend be.Backend) {
 	r.Get("/location", a.LocationGet)
 }
 
-func registerSmsRoutes(r chi.Router, backend be.Backend) {
-	a := api.Provide(backend)
-	r.Get("/sms/", a.SmsGet)
-	r.Get("/sms/{id:[a-zA-Z0-9%/]+}", a.SmsGet)
+type SmsHandlersInterface interface {
+	SmsGet(w http.ResponseWriter, r *http.Request)
+	SmsSend(w http.ResponseWriter, r *http.Request)
+	SmsDelete(w http.ResponseWriter, r *http.Request)
+}
 
-	r.Post("/sms", a.SmsSend)
-
-	r.Delete("/sms/{id:[a-zA-Z0-9%/]+}", a.SmsDelete)
+func registerSmsRoutes(r chi.Router, handlers SmsHandlersInterface) {
+	r.Get("/sms/", handlers.SmsGet)
+	r.Get("/sms/{id:[a-zA-Z0-9%/]+}", handlers.SmsGet)
+	r.Post("/sms", handlers.SmsSend)
+	r.Delete("/sms/{id:[a-zA-Z0-9%/]+}", handlers.SmsDelete)
 }
