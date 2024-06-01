@@ -6,7 +6,6 @@ import (
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
 	"github.com/mbretter/go-mmcli-svr/api"
-	be "github.com/mbretter/go-mmcli-svr/backend"
 	"github.com/mbretter/go-mmcli-svr/backend/mmcli"
 	_ "github.com/mbretter/go-mmcli-svr/docs"
 	"github.com/mbretter/go-mmcli-svr/middleware"
@@ -72,8 +71,8 @@ func main() {
 
 	r.With(middleware.LogRoute).Route("/", func(r chi.Router) {
 		handlers := api.Provide(backend)
-		registerModemRoutes(r, backend)
-		registerLocationRoutes(r, backend)
+		registerModemRoutes(r, handlers)
+		registerLocationRoutes(r, handlers)
 		registerSmsRoutes(r, handlers)
 
 		utilsApi := api.ProvideUtilsApi()
@@ -89,24 +88,31 @@ func main() {
 	http.ListenAndServe(commandLine.Listen, r)
 }
 
-func registerModemRoutes(r chi.Router, backend be.Backend) {
-	a := api.Provide(backend)
-	r.Get("/modem/", a.ModemList)
-	r.Get("/modem/{id:[a-zA-Z0-9%/]+}", a.ModemDetail)
+type modemHandlersInterface interface {
+	ModemList(w http.ResponseWriter, r *http.Request)
+	ModemDetail(w http.ResponseWriter, r *http.Request)
 }
 
-func registerLocationRoutes(r chi.Router, backend be.Backend) {
-	a := api.Provide(backend)
-	r.Get("/location", a.LocationGet)
+func registerModemRoutes(r chi.Router, handlers modemHandlersInterface) {
+	r.Get("/modem/", handlers.ModemList)
+	r.Get("/modem/{id:[a-zA-Z0-9%/]+}", handlers.ModemDetail)
 }
 
-type SmsHandlersInterface interface {
+type locationHandlersInterface interface {
+	LocationGet(w http.ResponseWriter, r *http.Request)
+}
+
+func registerLocationRoutes(r chi.Router, handlers locationHandlersInterface) {
+	r.Get("/location", handlers.LocationGet)
+}
+
+type smsHandlersInterface interface {
 	SmsGet(w http.ResponseWriter, r *http.Request)
 	SmsSend(w http.ResponseWriter, r *http.Request)
 	SmsDelete(w http.ResponseWriter, r *http.Request)
 }
 
-func registerSmsRoutes(r chi.Router, handlers SmsHandlersInterface) {
+func registerSmsRoutes(r chi.Router, handlers smsHandlersInterface) {
 	r.Get("/sms/", handlers.SmsGet)
 	r.Get("/sms/{id:[a-zA-Z0-9%/]+}", handlers.SmsGet)
 	r.Post("/sms", handlers.SmsSend)

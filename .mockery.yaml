@@ -9,7 +9,9 @@ inpackage: True
 packages:
   github.com/mbretter/go-mmcli-svr:
     interfaces:
-      SmsHandlersInterface:
+      smsHandlersInterface:
+      locationHandlersInterface:
+      modemHandlersInterface:
   github.com/mbretter/go-mmcli-svr/backend:
     config:
       filename: "{{.InterfaceNameLower}}_mock.go"
